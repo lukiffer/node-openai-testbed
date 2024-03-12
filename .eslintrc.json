@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "extends": [
+    "@cncsc/eslint-config/typescript"
+  ],
+  "parserOptions": {
+    "project": ["tsconfig.json"]
+  },
+  "overrides": [{
+    "files": ["karma.conf.js"],
+    "rules": {
+      "@typescript-eslint/no-var-requires": "off"
+    }
+  }]
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "@cncsc/typescript-config",
+  "compilerOptions": {
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "resolveJsonModule": true
+  }
+}
