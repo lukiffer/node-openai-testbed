@@ -1,5 +1,5 @@
 {
-  "extends": "@cncsc/typescript-config",
+  "extends": "@bdrk/typescript-config",
   "compilerOptions": {
     "lib": [
       "es2020",

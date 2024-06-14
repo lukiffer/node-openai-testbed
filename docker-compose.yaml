@@ -1,0 +1,7 @@
+services:
+  chroma:
+    container_name: chroma
+    image: chromadb/chroma:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8000
