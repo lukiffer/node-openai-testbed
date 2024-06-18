@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+  <title>Feedback Similarity Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;400;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    body > details {
+      max-width: 1440px;
+      border: solid 1px #eee;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    section > div {
+      border: solid 1px #ccc;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    table {
+      width: 100%;
+    }
+    table, td, th {
+      border: solid 1px #eee;
+      border-collapse: collapse;
+    }
+    table thead th {
+      text-align: left;
+    }
+    th, td {
+      padding: 6px;
+    }
+    td > img {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 6px;
+      margin-bottom: -3px;
+    }
+    h1 + span {
+      margin-bottom: 12px;
+      display: block;
+    }
+    tr.low {
+      opacity: 0.2;
+    }
+    tr.medium {
+      opacity: 0.5;
+    }
+    .score.high {
+      color: green;
+    }
+    .score.medium {
+      color: #ffc800;
+    }
+    .score.low {
+      color: #cd2020;
+    }
+    summary span {
+      display: inline-block;
+      background: #f1f1f1;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #777;
+      margin-left: 6px;
+    }
+    summary button {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <h1>Feedback Similarity Report</h1>
+  <span>Generated on {{ reportDate }}</span>
+
+  {{#each components}}
+  <details>
+    <summary>Component: {{ this.name }} <span>{{ this.issueCount }}</span> <button onclick="window.navigator.clipboard.writeText('{{ this.jql }}');">Copy JQL</button></summary>
+    <section>
+      <h2>{{ this.name }}</h2>
+      {{#each this.issues}}
+      <div>
+        <h3><a href="https://accaella.atlassian.net/browse/{{ this.key }}">{{ this.key }}: {{ this.summary }}</a></h3>
+        <details>
+          <summary>{{ this.shortDescription }}</summary>
+          <p>{{this.description}}</p>
+        </details>
+        <h4>Semantically Similar Issues</h4>
+        <table>
+          <thead>
+            <tr>
+              <th width="200">Key</th>
+              <th>Summary</th>
+              <th width="200">Similarity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.relatedIssues}}
+            <tr class="{{ this.similarityClass }}">
+              <td>
+                <img src="{{ this.issueTypeIconUrl }}" alt="{{ this.issueType }}" />
+                <a href="https://accaella.atlassian.net/browse/{{ this.key }}">
+                {{ this.key }}
+                </a>
+              </td>
+              <td>{{ this.summary }}</td>
+              <td><span class="score {{ this.similarityClass }}">{{ this.similarity }}</span></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      {{/each}}
+    </section>
+  </details>
+  {{/each}}
+</body>
+</html>

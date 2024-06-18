@@ -5,6 +5,7 @@
       "es2020",
       "dom"
     ],
+    "esModuleInterop": true,
     "resolveJsonModule": true
   }
 }
