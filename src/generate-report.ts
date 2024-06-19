@@ -77,7 +77,7 @@ async function getData(): Promise<any> {
       name: x,
       issues: components[x],
       issueCount: components[x].length,
-      jql: `statusCategory != Done AND key IN (${ components[x].map(y => y.key).join(', ')})`,
+      jql: `statusCategory != Done AND key IN (${ components[x].map(y => y.key).join(', ')}) AND (issueLinkType IS EMPTY OR issueLinkType NOT IN ("added to idea"))`,
     })),
   };
 }
